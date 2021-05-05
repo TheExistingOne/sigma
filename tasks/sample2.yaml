@@ -1,0 +1,4 @@
+name: 'Sample Task 2'
+notify: false
+notify-timestamp: '04-05-06-03-16'
+notification-body: 'This is a second sample added to test task loading in sigma'

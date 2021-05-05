@@ -1,7 +1,17 @@
+import glob
+import os
 import yaml
 
 
-def parse_task(config):
+def parse_tasks():
+    tasks = []
+    os.chdir("tasks")
+    for file in glob.glob("*.yaml"):
+        tasks.append(parse_yaml_to_dictionary(file))
+    return tasks
+
+
+def parse_yaml_to_dictionary (config):
     parsed_config = {
         "name": "",
         "notify": False,
