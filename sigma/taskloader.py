@@ -6,12 +6,15 @@ import yaml
 def parse_tasks():
     tasks = []
     os.chdir("tasks")
+    # Iterate over all files in /tasks with the extension .yaml
+    # parse them, and add them to the array
     for file in glob.glob("*.yaml"):
         tasks.append(parse_yaml_to_dictionary(file))
     return tasks
 
 
 def parse_yaml_to_dictionary (config):
+    # Template dictionary to load data in to
     parsed_config = {
         "name": "",
         "notify": False,
@@ -24,11 +27,13 @@ def parse_yaml_to_dictionary (config):
     }
     with open(config, 'r') as stream:
         try:
+            # Load simple values from config
             raw_config = yaml.safe_load(stream)
             parsed_config["name"] = raw_config.get("name")
             parsed_config["notify"] = raw_config.get("notify")
             parsed_config["notification-body"] = raw_config.get("notification-body")
-
+            
+            #Load and parse timestamp into it's components and load them
             timestamp_separated = raw_config.get("notify-timestamp").split("-")
             parsed_config["day"] = int(timestamp_separated[0])
             parsed_config["month"] = int(timestamp_separated[1])
