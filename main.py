@@ -1,8 +1,11 @@
 from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout, QHBoxLayout, QPushButton
-from sigma.taskloader import parse_tasks
+from sigma.taskloader import load_tasks
+from sigma.database import create_table
+
+create_table()
 
 # Load tasks from /tasks into array
-tasks = parse_tasks()
+tasks = load_tasks()
 task_index = 0
 
 if __name__ == '__main__':
@@ -21,7 +24,6 @@ if __name__ == '__main__':
     remind = QLabel("")
     date = QLabel("")
     time = QLabel("")
-
 
     def load_sample(config):
         # When passed a config, parse it to sane text that can be displayed to the user
@@ -75,8 +77,8 @@ if __name__ == '__main__':
     button_layout.addWidget(next_button)
     button_layout.addWidget(previous_button)
     window_layout.addLayout(button_layout)
-    
-    #Create and run the window    
+
+    #Create and run the window
     window.setLayout(window_layout)
     window.show()
     app.exec_()
